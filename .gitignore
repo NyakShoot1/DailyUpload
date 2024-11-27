@@ -13,3 +13,7 @@
 .externalNativeBuild
 .cxx
 local.properties
+
+/fastapi-minio/.idea
+/fastapi-minio/venv
+
