@@ -16,7 +16,7 @@ interface PhotoModule {
 
     @Binds
     @Singleton
-    fun bindLocalPhotoRepository(
+    fun bindPhotoRepository(
         impl: LocalPhotoRepositoryImpl,
     ): LocalPhotoRepository
 

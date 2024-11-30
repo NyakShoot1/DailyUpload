@@ -23,9 +23,11 @@ class UploadWorker @AssistedInject constructor(
     private val remotePhotoRepository: RemotePhotoRepository,
 ) : CoroutineWorker(context, workerParams) {
 
+    companion object {
+        const val WORK_NAME = "UploadWorker"
+    }
+
     override suspend fun doWork(): Result {
-
-
         val todayPhotos = localPhotoRepository.getPhotosForToday()
         if (todayPhotos.isEmpty()) {
             Log.d("UploadWorker", "No photos to upload")
@@ -52,6 +54,12 @@ class UploadWorker @AssistedInject constructor(
                 )
             }
 
+            if (response.errors.isNotEmpty()){
+                response.errors.forEach {  photoName ->
+                    localPhotoRepository.updatePhotoStatusByFileName(photoName, UploadStatus.FAILED)
+                }
+            }
+
             Result.success()
         } catch (e: Exception) {
             Log.e("UploadWorker", "Upload failed", e)
@@ -66,9 +74,4 @@ class UploadWorker @AssistedInject constructor(
             Result.failure()
         }
     }
-
-    companion object {
-        const val WORK_NAME = "photos_upload"
-    }
-
 }

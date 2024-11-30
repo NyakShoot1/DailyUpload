@@ -15,4 +15,5 @@ object AppModule {
     fun provideGson(): Gson = GsonBuilder()
         .disableHtmlEscaping()
         .create()
+
 }

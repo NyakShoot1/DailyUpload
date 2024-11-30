@@ -33,6 +33,7 @@ class DailyUploadApplication: Application(), Configuration.Provider {
     }
 
     private fun setupRecurringWork() {
+
         val constraints = Constraints.Builder()
             .setRequiredNetworkType(NetworkType.CONNECTED)
             .build()
